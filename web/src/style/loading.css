@@ -1,0 +1,41 @@
+.inline-loading {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-left-color: white;
+  border-radius: 50%;
+  animation: loading 0.5s linear infinite;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    to right,
+    rgba(111, 111, 111, 0.2),
+    rgba(209, 209, 209, 0.4),
+    rgba(111, 111, 111, 0.2)
+  );
+  background-size: 1000% 100%;
+  animation: shimmer 1s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}

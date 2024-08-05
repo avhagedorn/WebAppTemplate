@@ -1,0 +1,7 @@
+backend/project_name/.venv
+backend/.env
+backend/email/gcloud_client_secret.json
+
+__pycache__/
+*.pyc
+*.pyo

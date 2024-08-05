@@ -1,0 +1,29 @@
+{
+  "version": "0.0.0",
+  "configurations": [
+    {
+      "name": "Backend",
+      "type": "python",
+      "request": "launch",
+      "module": "uvicorn",
+      "cwd": "${workspaceFolder}/backend",
+      "args": ["project_name.main:app", "--reload", "--port", "8080"]
+    },
+    {
+      "name": "Frontend",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceRoot}/web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node-terminal",
+      "name": "Database",
+      "request": "launch",
+      "cwd": "${workspaceRoot}/backend",
+      "command": "docker run --name project_db -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres && sleep 1 && alembic upgrade head"
+    }
+  ]
+}
