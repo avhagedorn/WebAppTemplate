@@ -1,5 +1,3 @@
-import { GraphData } from "@/types";
-
 export function highlightText(highlight: string, text: string) {
   const regex = new RegExp(`(${highlight})`, "i");
   const match = text.match(regex);
@@ -20,12 +18,4 @@ export function highlightText(highlight: string, text: string) {
   }
 
   return text;
-}
-
-export function getLineColor(data: GraphData[]) {
-  if (data.length === 0) return "#10b981"; // emerald-500
-
-  const firstPrice = data[0].left;
-  const lastPrice = data[data.length - 1].left;
-  return firstPrice < lastPrice ? "#10b981" : "#ef4444"; // emerald-500 : red-500
 }

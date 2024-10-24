@@ -13,7 +13,6 @@ from project_name.configs import ACCESS_TOKEN_EXPIRE_MINUTES
 from project_name.db.engine import get_sqlalchemy_engine
 from project_name.db.models import ResetPasswordRequest
 from project_name.db.models import User
-from project_name.db.models import UserPreferences
 from project_name.modules.auth.models import CreateUserRequest
 from project_name.modules.auth.models import ForgotPasswordRequest
 from project_name.modules.auth.models import LoginRequest
@@ -96,13 +95,6 @@ async def register_user(
             )
 
             db_session.add(user)
-            db_session.commit()
-
-            user_preferences = UserPreferences(
-                user_id=user.id, strategy_display_option=0
-            )
-
-            db_session.add(user_preferences)
             db_session.commit()
 
             access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)

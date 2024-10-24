@@ -11,10 +11,7 @@ from sqlalchemy.orm import Session
 from project_name.configs import ACCESS_TOKEN_EXPIRE_MINUTES
 from project_name.db.engine import get_sqlalchemy_engine
 from project_name.db.models import User
-from project_name.db.models import UserPreferences
 from project_name.modules.auth.models import DisplayUser
-from project_name.modules.user.models import DisplayUserPreferences
-from project_name.modules.user.models import UpdateUserPreferencesRequest
 from project_name.modules.user.models import UpdateUserRequest
 from project_name.utils.auth import create_access_token
 from project_name.utils.auth import get_current_admin_user
@@ -89,34 +86,6 @@ async def delete_user(
 
     response.delete_cookie(key="access_token")
     return {"message": "User deleted"}
-
-
-@router.get("/preferences")
-async def read_user_preferences(
-    current_user: User = Depends(get_current_user),
-):
-    with Session(get_sqlalchemy_engine()) as db_session:
-        preferences = (
-            db_session.query(UserPreferences).filter_by(user_id=current_user.id).first()
-        )
-
-        return DisplayUserPreferences.from_db(preferences)
-
-
-@router.post("/preferences/update")
-async def update_user_preferences(
-    request: UpdateUserPreferencesRequest,
-    current_user: User = Depends(get_current_user),
-):
-    with Session(get_sqlalchemy_engine()) as db_session:
-        preferences = (
-            db_session.query(UserPreferences).filter_by(user_id=current_user.id).first()
-        )
-
-        preferences.strategy_display_option = request.strategy_display_option
-        db_session.commit()
-
-        return DisplayUserPreferences.from_db(preferences)
 
 
 """

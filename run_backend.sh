@@ -1,0 +1,1 @@
+cd backend && uvicorn project_name.main:app --reload --port 8080

@@ -10,7 +10,7 @@ export default function PrivacyPolicy() {
         <h1 className="text-4xl font-bold mb-2">Privacy Policy</h1>
         <p className="mb-4">Last Updated: 5/22/2024</p>
         <p>
-          AlphaTracker is committed to protecting the privacy and security of
+          project_name_title_case is committed to protecting the privacy and security of
           your personal information. This privacy policy explains how we
           collect, use, and safeguard your data when you use our application. By
           using our application, you consent to the practices described in this
@@ -89,8 +89,8 @@ export default function PrivacyPolicy() {
             Account
           </a>{" "}
           page in our application or contact us at{" "}
-          <a href="mailto:me@avhagedorn.dev" className="text-blue-500">
-            me@avhagedorn.dev
+          <a href="mailto:project_support_email" className="text-blue-500">
+            project_support_email
           </a>
           .
         </p>
@@ -112,8 +112,8 @@ export default function PrivacyPolicy() {
         <p>
           If you have any questions, concerns, or requests regarding this
           privacy policy or our data practices, please contact us at:{" "}
-          <a href="mailto:me@avhagedorn.dev" className="text-blue-500">
-            me@avhagedorn.dev
+          <a href="mailto:project_support_email" className="text-blue-500">
+            project_support_email
           </a>
           .
         </p>

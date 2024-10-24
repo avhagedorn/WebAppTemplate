@@ -3,38 +3,31 @@ import debounce from "lodash/debounce";
 import { fetchServer } from "@/lib/fetch";
 import { toast } from "react-toastify";
 import { highlightText } from "@/lib/displayUtils";
-import { SearchableSymbol } from "@/types";
 
-interface PortfolioResult {
+interface SearchResult {
   id: number;
   name: string;
 }
 
-interface StockResult {
-  ticker: string;
-  name: string;
-}
-
 interface SearchProps {
-  onSelect: (symbol: SearchableSymbol) => void;
+  onSelect: (result: SearchResult) => void;
+  fetchResults: (term: string) => Promise<SearchResult[]>;
   focusInput?: boolean;
   placeholder?: string;
   className?: string;
   inline?: boolean;
 }
 
-export default function Search({
+export default function GeneralSearch({
   onSelect,
+  fetchResults,
   placeholder,
   className,
   focusInput = false,
   inline = false,
 }: SearchProps) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [stockResults, setStockResults] = useState<StockResult[]>([]);
-  const [portfolioResults, setPortfolioResults] = useState<PortfolioResult[]>(
-    [],
-  );
+  const [results, setResults] = useState<SearchResult[]>([]);
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const debouncedSearch = useRef<any>(null);
   const componentRef = useRef<HTMLInputElement>(null);
@@ -47,51 +40,28 @@ export default function Search({
 
   const handleSearch = useCallback(async (term: string) => {
     if (term.length === 0 || term.startsWith(" ")) {
-      setStockResults([]);
-      setPortfolioResults([]);
+      setResults([]);
       return;
     }
-    const response = await fetchServer(`/search/stock?q=${term}`);
-    if (response.data) {
-      setStockResults(response.data.ticker_results || []);
-      setPortfolioResults(response.data.portfolio_results || []);
-    } else {
-      toast.error("Failed to search: " + response.error);
+    try {
+      const searchResults = await fetchResults(term);
+      setResults(searchResults);
+    } catch (error: any) {
+      toast.error("Failed to search: " + String(error));
     }
-  }, []);
+  }, [fetchResults]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const totalResults = stockResults.length + portfolioResults.length;
-    if (totalResults === 0) return;
+    if (results.length === 0) return;
 
     if (e.key === "ArrowUp") {
       e.preventDefault();
-      setFocusedIndex((prevIndex) =>
-        prevIndex <= 0 ? totalResults - 1 : prevIndex - 1,
-      );
+      setFocusedIndex((prevIndex) => (prevIndex <= 0 ? results.length - 1 : prevIndex - 1));
     } else if (e.key === "ArrowDown") {
       e.preventDefault();
-      setFocusedIndex((prevIndex) =>
-        prevIndex === totalResults - 1 ? 0 : prevIndex + 1,
-      );
+      setFocusedIndex((prevIndex) => (prevIndex === results.length - 1 ? 0 : prevIndex + 1));
     } else if (e.key === "Enter" && focusedIndex !== -1) {
-      const selectionIsStock = focusedIndex < stockResults.length;
-
-      if (selectionIsStock) {
-        const stock = stockResults[focusedIndex];
-        handleSelect({
-          ticker: stock.ticker,
-          name: stock.name,
-          type: "STOCK",
-        });
-      } else {
-        const portfolio = portfolioResults[focusedIndex - stockResults.length];
-        handleSelect({
-          id: portfolio.id,
-          name: portfolio.name,
-          type: "PORTFOLIO",
-        });
-      }
+      handleSelect(results[focusedIndex]);
     }
   };
 
@@ -105,11 +75,10 @@ export default function Search({
     debouncedSearch.current();
   };
 
-  const handleSelect = (selectedSymbol: SearchableSymbol) => {
-    onSelect(selectedSymbol);
+  const handleSelect = (selectedResult: SearchResult) => {
+    onSelect(selectedResult);
     setSearchTerm("");
-    setStockResults([]);
-    setPortfolioResults([]);
+    setResults([]);
   };
 
   return (
@@ -124,55 +93,17 @@ export default function Search({
         autoFocus={focusInput}
         ref={componentRef}
       />
-      {(stockResults.length > 0 || portfolioResults.length > 0) && (
+      {results.length > 0 && (
         <div className="absolute w-full text-center z-10 mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-          {stockResults.length > 0 && (
-            <>
-              <div className="text-left text-sm text-gray-600 px-4 py-2 border-b border-gray-300">
-                Stocks
-              </div>
-              {stockResults.map((result, index) => (
-                <button
-                  key={index}
-                  onClick={() =>
-                    handleSelect({
-                      ticker: result.ticker,
-                      name: result.ticker,
-                      type: "STOCK",
-                    })
-                  }
-                  className={`w-full rounded-md px-4 py-2 hover:bg-gray-100 cursor-pointer ${index === focusedIndex ? "bg-gray-200" : ""}`}
-                >
-                  {highlightText(
-                    searchTerm,
-                    `${result.ticker} - ${result.name}`,
-                  )}
-                </button>
-              ))}
-            </>
-          )}
-          {portfolioResults.length > 0 && (
-            <>
-              <div className="text-left text-sm text-gray-600 px-4 py-2 border-b border-gray-300 my-2">
-                Portfolios
-              </div>
-              {portfolioResults.map((result, index) => (
-                <button
-                  key={index + stockResults.length}
-                  onClick={() =>
-                    handleSelect({
-                      id: result.id,
-                      name: result.name,
-                      type: "PORTFOLIO",
-                    })
-                  }
-                  className={`w-full rounded-md px-4 py-2 hover:bg-gray-100 cursor-pointer ${index + stockResults.length === focusedIndex ? "bg-gray-200" : ""}`}
-                >
-                  {highlightText(searchTerm, result.name)}
-                </button>
-              ))}
-            </>
-          )}
+          {results.map((result, index) => (
+            <button
+              key={index}
+              onClick={() => handleSelect(result)}
+              className={`w-full rounded-md px-4 py-2 hover:bg-gray-100 cursor-pointer ${index === focusedIndex ? "bg-gray-200" : ""}`}
+            >
+              {highlightText(searchTerm, result.name)}
+            </button>
+          ))}
         </div>
       )}
     </div>

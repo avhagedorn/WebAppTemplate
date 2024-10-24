@@ -19,8 +19,8 @@ export default function DataUsage() {
           This application stores your data in a secure database. We do not
           share your data with any third parties. If you have any questions or
           concerns, please email{" "}
-          <a href="mailto:me@avhagedorn.dev" className="text-blue-500">
-            me@avhagedorn.dev
+          <a href="mailto:project_support_email" className="text-blue-500">
+            project_support_email
           </a>
           .
         </p>
@@ -30,17 +30,6 @@ export default function DataUsage() {
           <li>Email Address</li>
           <li>Password (hashed)</li>
           <li>Session Data</li>
-          <li>Portfolios (Strategies) Created</li>
-          <li>
-            Positions in Portfolios
-            <ul className="list-disc list-inside ml-6">
-              <li>Symbol</li>
-              <li>Quantity</li>
-              <li>Price</li>
-              <li>Timestamp</li>
-            </ul>
-          </li>
-          <li>Transactions in Portfolios</li>
         </ul>
         <h2 className="text-xl font-bold mt-4">Data Deletion</h2>
         <p>

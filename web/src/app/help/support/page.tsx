@@ -10,8 +10,8 @@ export default function Support() {
         <h1 className="text-4xl font-bold mb-4">Support</h1>
         <p>
           If you have any questions or concerns, please contact us at{" "}
-          <a href={`mailto:me@avhagedorn.dev`} className="text-blue-500">
-            me@avhagedorn.dev
+          <a href={`mailto:project_support_email`} className="text-blue-500">
+          project_support_email
           </a>
           .
         </p>

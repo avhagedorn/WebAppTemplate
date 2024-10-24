@@ -3,11 +3,6 @@ import { cookies } from "next/headers";
 
 const protectedRoutes = [
   "/home",
-  "/profile",
-  "/account",
-  "/logout",
-  "/strategies",
-  "/compare",
 ];
 
 export default function middleware(req: NextRequest) {

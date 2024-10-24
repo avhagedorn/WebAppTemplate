@@ -23,7 +23,7 @@
       "name": "Database",
       "request": "launch",
       "cwd": "${workspaceRoot}/backend",
-      "command": "docker run --name project_db -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres && sleep 1 && alembic upgrade head"
+      "command": "docker run --name project_name_db -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres && sleep 1 && alembic upgrade head"
     }
   ]
 }

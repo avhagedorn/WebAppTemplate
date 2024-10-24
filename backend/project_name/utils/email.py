@@ -47,7 +47,7 @@ def _create_email_message_with_attachments(
 
 
 def send_data_request_email(email_to: str, attachment: bytes):
-    subject = "Your AlphaTracker Data Request"
+    subject = "Your Data Request"
     body = (
         "Thank you for your data request. We have processed "
         "your request and attached the data file to this email."
@@ -62,7 +62,7 @@ def send_data_request_email(email_to: str, attachment: bytes):
 def send_reset_password_email(email_to: str, request_uuid: str):
     reset_password_link = f"{WEB_URL}/auth/reset-password/{request_uuid}"
 
-    subject = "Reset Your AlphaTracker Password"
+    subject = "Reset Your Password"
     body = (
         "Please click the link below to reset your password. This request will expire in one hour."
         "\nIf you did not request a password reset, please ignore this email."
