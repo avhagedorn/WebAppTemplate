@@ -40,9 +40,9 @@ export default function ContentWrapper({
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-between">
               <div className="w-full md:w-1/3 mb-4 md:mb-0">
-                <h3 className="text-lg font-semibold mb-2">AlphaTracker</h3>
+                <h3 className="text-lg font-semibold mb-2">project_title</h3>
                 <p className="text-gray-600">
-                  &copy; {new Date().getFullYear()} AlphaTracker
+                  &copy; {new Date().getFullYear()} project_title
                 </p>
               </div>
               <div className="w-full md:w-1/3 mb-4 md:mb-0">

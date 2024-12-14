@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 
 export const metadata: Metadata = {
-  title: "AlphaTracker",
+  title: "project_title",
   description: "Track your portfolio against the market",
 };
 

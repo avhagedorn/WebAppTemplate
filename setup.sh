@@ -29,6 +29,7 @@ echo "Replacing placeholders with user-provided values..."
 
 # Convert project title to a lowercased, underscore-separated version
 project_name=$(echo "$project_title" | tr '[:upper:]' '[:lower:]' | tr ' ' '_')
+project_name_caps=$(echo "$project_title" | tr '[:lower:]' '[:upper:]' | tr ' ' '_')
 
 if [[ "$project_name" =~ [\'\"] ]]; then
   echo "Error: Project name contains apostrophes or quotes."
@@ -49,6 +50,13 @@ done
 find . -type f ! -path "./.git/*" ! -name "*.ico" ! -name "setup.sh" | while read -r file; do
   if ! is_binary "$file"; then
     sed -i '' "s/project_name/$project_name/g; s/project-name/$project_name/g" "$file"
+  fi
+done
+
+# Replace occurrences of "project_name_caps" with the user-provided project name in all file contents excluding binary, .ico files, and .git directory
+find . -type f ! -path "./.git/*" ! -name "*.ico" | while read -r file; do
+  if ! is_binary "$file"; then
+    sed -i '' "s/project_name_caps/$project_name_caps/g" "$file"
   fi
 done
 
