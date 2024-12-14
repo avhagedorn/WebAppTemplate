@@ -63,7 +63,7 @@ done
 # Replace occurrences of "project_name_title_case" with the user-provided project title in all file contents excluding binary, .ico files, and .git directory
 find . -type f ! -path "./.git/*" ! -name "*.ico" | while read -r file; do
   if ! is_binary "$file"; then
-    sed -i '' "s/project_name_title_case/$project_title/g" "$file"
+    sed -i '' "s/project_name_title_case/$project_name_title_case/g" "$file"
   fi
 done
 
