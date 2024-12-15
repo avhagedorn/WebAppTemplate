@@ -10,7 +10,7 @@ export default function PrivacyPolicy() {
         <h1 className="text-4xl font-bold mb-2">Privacy Policy</h1>
         <p className="mb-4">Last Updated: 5/22/2024</p>
         <p>
-          project_name_title_case is committed to protecting the privacy and security of
+          project_title is committed to protecting the privacy and security of
           your personal information. This privacy policy explains how we
           collect, use, and safeguard your data when you use our application. By
           using our application, you consent to the practices described in this

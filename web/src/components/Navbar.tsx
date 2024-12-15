@@ -12,7 +12,7 @@ export default function Navbar({ hideFooter }: NavbarProps) {
         <div className="flex justify-between items-center space-x-4 font-bold">
           <div className="py-4 flex-none">
             <a href="/" className="mr-4">
-              [project_name]
+              [project_title]
             </a>
           </div>
           <div className="py-4 flex-none">
@@ -29,7 +29,7 @@ export default function Navbar({ hideFooter }: NavbarProps) {
         <div className="relative flex items-center justify-between font-bold">
           <div className="py-4">
             <a href="/home" className="mr-4">
-              [project_name]
+              [project_title]
             </a>
           </div>
           <div className="py-4">
