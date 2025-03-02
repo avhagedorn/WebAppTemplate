@@ -92,7 +92,11 @@ clear
 echo "Creating a container named '${project_name}_db' with the Postgres image..."
 # Delete the container if it already exists
 docker rm -f "${project_name}_db"
-docker run --name "${project_name}_db" -e POSTGRES_PASSWORD=postgres -e  -e "POSTGRES_DB=${projectname}_db" -d -p 5432:5432 postgres
+<<<<<<< Updated upstream
+docker run --name "${project_name}_db" -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 postgres
+=======
+docker run --name "${project_name}_db" -e POSTGRES_PASSWORD=postgres -e "POSTGRES_DB=${projectname}_db" -d -p 5432:5432 postgres
+>>>>>>> Stashed changes
 clear
 
 # Initialize a virtual environment and install dependencies for the backend
