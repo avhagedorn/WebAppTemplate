@@ -7,12 +7,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pytz import timezone
 
-from alphatracker.configs import PROJECT_NAME_HOST
-from alphatracker.configs import PROJECT_NAME_PORT
-from alphatracker.modules.auth.api import router as auth_router
-from alphatracker.modules.email.api import router as email_router
-from alphatracker.modules.user.api import router as user_router
-from alphatracker.utils.logging import setup_logger
+from project_name.configs import PROJECT_NAME_CAPS_HOST
+from project_name.configs import PROJECT_NAME_CAPS_PORT
+from project_name.modules.auth.api import router as auth_router
+from project_name.modules.email.api import router as email_router
+from project_name.modules.user.api import router as user_router
+from project_name.utils.logging import setup_logger
 
 logger = setup_logger()
 
@@ -62,6 +62,6 @@ app = get_application()
 
 if __name__ == "__main__":
     logger.info(
-        f"Starting project_name on http://{PROJECT_NAME_HOST}:{str(PROJECT_NAME_PORT)}/"
+        f"Starting project_name on http://{PROJECT_NAME_CAPS_HOST}:{str(PROJECT_NAME_CAPS_PORT)}/"
     )
-    uvicorn.run(app, host=PROJECT_NAME_HOST, port=PROJECT_NAME_PORT)
+    uvicorn.run(app, host=PROJECT_NAME_CAPS_HOST, port=PROJECT_NAME_CAPS_PORT)

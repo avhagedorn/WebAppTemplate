@@ -8,12 +8,12 @@ export default function FAQ() {
     <ContentWrapper>
       <div className="w-1/3 mx-auto">
         <h1 className="text-4xl font-bold mb-4">Frequently Asked Questions</h1>
-        <h2 className="text-xl font-bold mt-4">What is project_name_title_case?</h2>
+        <h2 className="text-xl font-bold mt-4">What is project_title?</h2>
         <p>
-          project_name_title_case is a web application.
+          project_title is a web application.
         </p>
         <h2 className="text-xl font-bold mt-4">
-          What can I do on project_name_title_case?
+          What can I do on project_title?
         </h2>
       </div>
     </ContentWrapper>

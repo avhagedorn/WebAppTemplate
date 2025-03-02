@@ -29,6 +29,7 @@ echo "Replacing placeholders with user-provided values..."
 
 # Convert project title to a lowercased, underscore-separated version
 project_name=$(echo "$project_title" | tr '[:upper:]' '[:lower:]' | tr ' ' '_')
+project_name_caps=$(echo "$project_title" | tr '[:lower:]' '[:upper:]' | tr ' ' '_')
 
 if [[ "$project_name" =~ [\'\"] ]]; then
   echo "Error: Project name contains apostrophes or quotes."
@@ -52,10 +53,17 @@ find . -type f ! -path "./.git/*" ! -name "*.ico" ! -name "setup.sh" | while rea
   fi
 done
 
-# Replace occurrences of "project_name_title_case" with the user-provided project title in all file contents excluding binary, .ico files, and .git directory
+# Replace occurrences of "project_name_caps" with the user-provided project name in all file contents excluding binary, .ico files, and .git directory
 find . -type f ! -path "./.git/*" ! -name "*.ico" | while read -r file; do
   if ! is_binary "$file"; then
-    sed -i '' "s/project_name_title_case/$project_title/g" "$file"
+    sed -i '' "s/project_name_caps/$project_name_caps/g" "$file"
+  fi
+done
+
+# Replace occurrences of "project_title" with the user-provided project title in all file contents excluding binary, .ico files, and .git directory
+find . -type f ! -path "./.git/*" ! -name "*.ico" | while read -r file; do
+  if ! is_binary "$file"; then
+    sed -i '' "s/project_title/$project_title/g" "$file"
   fi
 done
 
@@ -84,7 +92,7 @@ clear
 echo "Creating a container named '${project_name}_db' with the Postgres image..."
 # Delete the container if it already exists
 docker rm -f "${project_name}_db"
-docker run --name "${project_name}_db" -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 postgres
+docker run --name "${project_name}_db" -e POSTGRES_PASSWORD=postgres -e  -e "POSTGRES_DB=${projectname}_db" -d -p 5432:5432 postgres
 clear
 
 # Initialize a virtual environment and install dependencies for the backend

@@ -51,7 +51,7 @@ def send_data_request_email(email_to: str, attachment: bytes):
     body = (
         "Thank you for your data request. We have processed "
         "your request and attached the data file to this email."
-        "\n\nBest,\nAlphaTracker Team"
+        "\n\nBest,\nproject_title Team"
     )
     msg = _create_email_message_with_attachments(
         email_to, subject, body, [attachment], ["data.json"]
@@ -66,7 +66,7 @@ def send_reset_password_email(email_to: str, request_uuid: str):
     body = (
         "Please click the link below to reset your password. This request will expire in one hour."
         "\nIf you did not request a password reset, please ignore this email."
-        f"\n\n{reset_password_link}\n\nBest,\nAlphaTracker Team"
+        f"\n\n{reset_password_link}\n\nBest,\nproject_title Team"
     )
     msg = _create_email_message(email_to, subject, body)
     _send_email(email_to, msg)
